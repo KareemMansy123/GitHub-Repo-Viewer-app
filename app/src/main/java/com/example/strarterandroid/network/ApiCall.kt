@@ -1,8 +1,10 @@
 package com.example.strarterandroid.network
 
+import com.example.strarterandroid.network.model.PostModel
+import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 
 interface ApiCall {
-    @GET("api/v1/employees")
-    fun callApi()
+    @GET("posts/1")
+    fun callApi() : Single<PostModel>
 }
