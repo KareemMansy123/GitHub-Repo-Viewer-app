@@ -1,18 +1,16 @@
 package com.example.strarterandroid.pricentation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.material.Button
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
@@ -29,41 +27,49 @@ class MainActivity : ComponentActivity() {
         setContent {
             StrarterAndroidTheme {
                 val viewModel = getViewModel<MainViewModel>()
-                val text = remember { mutableStateOf("remember") }
-
-                Render(viewModel,text)
-                Column {
-                    Text(text = text.value)
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Button(onClick = { send(viewModel) }) {
-                        Text(text = "Send")
-                    }
-                }
+                send(viewModel)
+                Render(viewModel)
             }
         }
     }
 
     // MVI pattern
     private fun send(viewModel: MainViewModel) {
-        // send data to the view model  by using the intent channel
         lifecycleScope.launch {
             viewModel.intentChannel.send(MainIntent.callApi)
         }
     }
 
     @Composable
-    fun Render(viewModel: MainViewModel,text: MutableState<String>) {
-        // will get data here from the view model by using Flow
-        // why Flow? because it's a stream of data that can be observed and if repeated it will give the same result
-        LaunchedEffect(Unit) {
-            viewModel.viewState.collect {
-                text.value = when (it) {
-                    is MainViewState.Idle -> "Idle"
-                    is MainViewState.Loading -> "Loading"
-                    is MainViewState.Success -> (it.data as List<GithubReposListModel>).first().fullName
-                    is MainViewState.Error -> it.error
+    fun Render(viewModel: MainViewModel) {
+        val reposList = viewModel.viewState.collectAsState(initial = MainViewState.Idle)
+
+        LazyColumn {
+            when (val state = reposList.value) {
+                is MainViewState.Loading -> item { Text("Loading...") }
+                is MainViewState.Success -> {
+                    val repos = state.data as List<GithubReposListModel>
+                    items(repos.size) { index ->
+                        ListItem(repos[index])
+                    }
                 }
+                is MainViewState.Error -> item { Text("Error: ${state.error}") }
+                is MainViewState.Idle -> item { Text("Idle") }
             }
         }
+    }
+
+    @Composable
+    fun ListItem(repo: GithubReposListModel) {
+        Text(
+            text = repo.fullName,
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(onClick = {
+                    // Handle item click, for example, show a toast or navigate
+                    Log.d("MainActivity", "Clicked on ${repo.fullName}")
+                })
+                .padding(16.dp)
+        )
     }
 }
