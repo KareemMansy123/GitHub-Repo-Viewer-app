@@ -1,13 +1,12 @@
 package com.example.strarterandroid.network
 
-import com.example.strarterandroid.network.model.PostModel
-import io.reactivex.rxjava3.core.Single
-import retrofit2.Call
+import com.example.strarterandroid.network.model.GithubReposListModel
+import retrofit2.Response
 
 class MainApiRepoImp(
     private val apiCall: ApiCall
 ) : IMainApi {
-    override fun callApi() : Single<PostModel> {
-      return  apiCall.callApi()
+    override suspend fun callApi() : Response<List<GithubReposListModel>> {
+      return  apiCall.reposListApi()
     }
 }

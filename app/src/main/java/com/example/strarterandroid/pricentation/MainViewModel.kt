@@ -7,8 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.strarterandroid.core.MainIntent
 import com.example.strarterandroid.core.MainViewState
 import com.example.strarterandroid.network.IMainApi
+import com.example.strarterandroid.network.model.GithubReposListModel
+import com.example.strarterandroid.network.model.PostModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,19 +28,16 @@ class MainViewModel(
     init {
         process()
     }
-
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        println(throwable.message)
+    }
     @SuppressLint("CheckResult")
     fun callApi() {
-        mainApiRepoImp.callApi()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ response ->
-                _viewState.value = MainViewState.Success(response)
-                Log.e("Post Response", "callApi: $response.")
-            }, { error ->
-                _viewState.value = MainViewState.Error(error.message.toString())
-                Log.e("API Error", "Error calling API", error)
-            })
+        viewModelScope.launch(exceptionHandler) {
+            val response = mainApiRepoImp.callApi()
+            val ratesResponse = response.body()
+            _viewState.value = MainViewState.Success(ratesResponse as List<GithubReposListModel>)
+        }
     }
 
     private fun process() {
