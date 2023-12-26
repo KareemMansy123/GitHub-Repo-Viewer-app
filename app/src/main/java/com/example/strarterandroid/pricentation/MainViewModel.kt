@@ -1,16 +1,12 @@
 package com.example.strarterandroid.pricentation
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.strarterandroid.core.MainIntent
 import com.example.strarterandroid.core.MainViewState
 import com.example.strarterandroid.network.IMainApi
 import com.example.strarterandroid.network.model.GithubReposListModel
-import com.example.strarterandroid.network.model.PostModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
