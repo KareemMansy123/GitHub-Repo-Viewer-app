@@ -5,8 +5,16 @@ import retrofit2.Response
 
 class MainApiRepoImp(
     private val apiCall: ApiCall
-) : IMainApi {
-    override suspend fun callApi() : Response<List<GithubReposListModel>> {
+) : IApiCall {
+    override suspend fun reposListApi() : Response<List<GithubReposListModel>> {
       return  apiCall.reposListApi()
     }
+
+    override suspend fun reposDetailsApi(
+        owner: String,
+        repo: String
+    ): Response<GithubReposListModel> {
+        return apiCall.reposDetailsApi(owner, repo)
+    }
+
 }

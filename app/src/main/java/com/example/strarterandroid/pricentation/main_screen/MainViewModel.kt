@@ -1,11 +1,10 @@
-package com.example.strarterandroid.pricentation
+package com.example.strarterandroid.pricentation.main_screen
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.strarterandroid.core.MainIntent
 import com.example.strarterandroid.core.MainViewState
-import com.example.strarterandroid.network.IMainApi
+import com.example.strarterandroid.network.IApiCall
 import com.example.strarterandroid.network.model.GithubReposListModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.channels.Channel
@@ -15,7 +14,7 @@ import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 
 class MainViewModel(
-    private val mainApiRepoImp: IMainApi
+    private val mainApiRepoImp: IApiCall
 ) : ViewModel() {
     val intentChannel = Channel<MainIntent>(Channel.UNLIMITED)
     private val _viewState = MutableStateFlow<MainViewState>(MainViewState.Idle)
@@ -30,7 +29,7 @@ class MainViewModel(
     @SuppressLint("CheckResult")
     fun callApi() {
         viewModelScope.launch(exceptionHandler) {
-            val response = mainApiRepoImp.callApi()
+            val response = mainApiRepoImp.reposListApi()
             val ratesResponse = response.body()
             _viewState.value = MainViewState.Success(ratesResponse as List<GithubReposListModel>)
         }
@@ -40,7 +39,7 @@ class MainViewModel(
         viewModelScope.launch {
             intentChannel.consumeAsFlow().collect {
                 when (it) {
-                    is MainIntent.callApi -> callApi()
+                    is MainIntent.ReposList -> callApi()
                 }
             }
 
