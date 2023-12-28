@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
-import com.example.strarterandroid.core.navigation.AppNavigation
+import com.example.strarterandroid.core.navigation.MainNavigation
 import com.example.strarterandroid.ui.theme.StrarterAndroidTheme
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.getViewModel
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
                 val viewModel = getViewModel<MainViewModel>()
                 send(viewModel)
                 val navController = rememberNavController()
-                AppNavigation(navController, viewModel)
+                MainNavigation(navController, viewModel)
             }
         }
     }

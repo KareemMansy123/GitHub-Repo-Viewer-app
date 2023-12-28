@@ -1,9 +1,12 @@
 package com.example.strarterandroid.network.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
-
+@Entity
 data class GithubReposListModel(
+    @PrimaryKey
     @SerializedName("id") val id: Int,
     @SerializedName("node_id") val nodeId: String,
     @SerializedName("name") val name: String,
