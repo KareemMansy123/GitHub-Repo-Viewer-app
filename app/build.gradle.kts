@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-//    id("kotlin-kapt")
+    kotlin("android")
+    id ("com.google.devtools.ksp")
 }
 
 android {
@@ -41,7 +41,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.4.7"
     }
     packaging {
         resources {
@@ -103,8 +103,11 @@ dependencies {
     implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
     implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
 
-//    //room database
-//    implementation("androidx.room:room-runtime:2.5.0")
-//    kapt("androidx.room:room-compiler:2.5.0")
-//    implementation("androidx.room:room-ktx:2.5.0")
+    implementation("com.google.devtools.ksp:symbol-processing-api:1.8.21-1.0.11")
+
+    //room database
+    val room_version = "2.5.0"
+    implementation("androidx.room:room-runtime:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
 }

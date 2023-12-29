@@ -16,7 +16,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             StrarterAndroidTheme {
                 val viewModel = getViewModel<MainViewModel>()
-                send(viewModel)
+//                send(viewModel)
                 val navController = rememberNavController()
                 MainNavigation(navController, viewModel)
             }

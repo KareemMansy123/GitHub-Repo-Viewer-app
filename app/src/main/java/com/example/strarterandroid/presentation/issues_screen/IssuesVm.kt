@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.strarterandroid.core.MainViewState
-//import com.example.strarterandroid.network.local_network.GithubRepository
+import com.example.strarterandroid.network.local_network.GithubRepository
 import com.example.strarterandroid.network.remote_network.IApiCall
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.channels.Channel
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 
 class IssuesVm(
     private val apiRepoImp: IApiCall,
-//    private val githubRepository: GithubRepository
+    private val githubRepository: GithubRepository
 ) : ViewModel() {
     val intentChannel = Channel<IssuesIntent>(Channel.UNLIMITED)
     private val _viewState = MutableStateFlow<MainViewState>(MainViewState.Idle)

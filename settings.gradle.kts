@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Strarter Android"
+rootProject.name = "GitHub Repo Viewer app"
 include(":app")
