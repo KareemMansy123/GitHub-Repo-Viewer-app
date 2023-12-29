@@ -1,4 +1,4 @@
-package com.example.strarterandroid.pricentation.main_screen
+package com.example.strarterandroid.presentation.main_screen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

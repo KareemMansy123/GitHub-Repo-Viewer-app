@@ -1,4 +1,4 @@
-package com.example.strarterandroid.pricentation.main_screen
+package com.example.strarterandroid.presentation.main_screen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -19,7 +20,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.strarterandroid.core.MainViewState
 import com.example.strarterandroid.core.navigation.OuterClass
-import com.example.strarterandroid.network.model.GithubReposListModel
+import com.example.strarterandroid.network.remote_network.model.GithubReposListModel
+import com.example.strarterandroid.presentation.shared.ErrorUI
+import com.example.strarterandroid.presentation.shared.IdleUI
 
 @Composable
 fun MainScreenUI(navController: NavController, viewModel: MainViewModel) {
@@ -27,21 +30,21 @@ fun MainScreenUI(navController: NavController, viewModel: MainViewModel) {
 
     LazyColumn {
         when (val state = reposList.value) {
-            is MainViewState.Loading -> item { Text("Loading...") }
+            is MainViewState.Loading -> item { CircularProgressIndicator() }
             is MainViewState.Success -> {
                 val repos = state.data as List<GithubReposListModel>
                 items(repos.size) { index ->
                     ListItem(repos[index],navController)
                 }
             }
-            is MainViewState.Error -> item { Text("Error: ${state.error}") }
-            is MainViewState.Idle -> item { Text("Idle") }
+            is MainViewState.Error -> item { ErrorUI(error = state.error, onRetry = { viewModel.retry() }) }
+            is MainViewState.Idle -> item { IdleUI() }
         }
     }
 }
 
 @Composable
-fun ListItem(repo: GithubReposListModel,navController: NavController) {
+fun ListItem(repo: GithubReposListModel, navController: NavController) {
     Card(
         modifier = Modifier
             .padding(8.dp)
@@ -76,3 +79,5 @@ fun ListItem(repo: GithubReposListModel,navController: NavController) {
         }
     }
 }
+
+

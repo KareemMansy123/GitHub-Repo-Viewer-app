@@ -1,4 +1,4 @@
-package com.example.strarterandroid.pricentation.details_screen
+package com.example.strarterandroid.presentation.details_screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,7 +16,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.strarterandroid.core.MainViewState
 import com.example.strarterandroid.core.navigation.OuterClass
-import com.example.strarterandroid.network.model.GithubReposListModel
+import com.example.strarterandroid.network.remote_network.model.GithubReposListModel
+import com.example.strarterandroid.presentation.shared.ErrorUI
+import com.example.strarterandroid.presentation.shared.IdleUI
 
 @Composable
 fun DetailScreen(name: String, owner: String, detailsViewModel: DetailsVm, navController: NavHostController) {
@@ -33,15 +35,15 @@ fun DetailScreen(name: String, owner: String, detailsViewModel: DetailsVm, navCo
                 val repos = viewState.data as GithubReposListModel
                 DetailsScreenUI(repos,navController)
             }
-            is MainViewState.Error -> Text("Error: ${viewState.error}")
-            else -> Unit
+            is MainViewState.Error ->  ErrorUI(error = viewState.error, onRetry = { detailsViewModel.retry(owner, name) })
+            is MainViewState.Idle -> IdleUI()
         }
     }
 
 }
 
 @Composable
-fun DetailsScreenUI(repos: GithubReposListModel,navController: NavHostController) {
+fun DetailsScreenUI(repos: GithubReposListModel, navController: NavHostController) {
     // Display additional details
     Text("Repository: ${repos.name}", style = MaterialTheme.typography.h6)
     Text("Owner: ${repos.owner.login}", style = MaterialTheme.typography.subtitle1)

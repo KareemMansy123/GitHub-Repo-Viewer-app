@@ -1,10 +1,10 @@
-package com.example.strarterandroid.pricentation.main_screen
+package com.example.strarterandroid.presentation.main_screen
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.strarterandroid.core.MainViewState
-import com.example.strarterandroid.network.local_network.GithubRepository
+//import com.example.strarterandroid.network.local_network.GithubRepository
 import com.example.strarterandroid.network.remote_network.IApiCall
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.channels.Channel
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val mainApiRepoImp: IApiCall,
-    private val githubRepository: GithubRepository
+//    private val githubRepository: GithubRepository
 ) : ViewModel() {
     val intentChannel = Channel<MainIntent>(Channel.UNLIMITED)
     private val _viewState = MutableStateFlow<MainViewState>(MainViewState.Idle)
@@ -34,6 +34,7 @@ class MainViewModel(
             if (response.isSuccessful) {
                 response.body()?.let { body ->
                     _viewState.value = MainViewState.Success(body)
+//                    githubRepository.saveOrUpdateReposList(body)
                 } ?: run {
                     _viewState.value = MainViewState.Error("Response body is null")
                 }
@@ -52,6 +53,11 @@ class MainViewModel(
                 }
             }
 
+        }
+    }
+    fun retry() {
+        viewModelScope.launch {
+            intentChannel.send(MainIntent.ReposList)
         }
     }
 }

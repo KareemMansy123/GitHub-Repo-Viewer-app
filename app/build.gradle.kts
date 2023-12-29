@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.kapt")
+//    id("kotlin-kapt")
 }
 
 android {
@@ -46,6 +46,11 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(8)) // Target Java 8
         }
     }
 }
@@ -98,11 +103,8 @@ dependencies {
     implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
     implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
 
-    //room database
-    implementation("androidx.room:room-runtime:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-
-
-
+//    //room database
+//    implementation("androidx.room:room-runtime:2.5.0")
+//    kapt("androidx.room:room-compiler:2.5.0")
+//    implementation("androidx.room:room-ktx:2.5.0")
 }

@@ -1,19 +1,15 @@
-package com.example.strarterandroid.network.model
+package com.example.strarterandroid.network.remote_network.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity
 data class IssuesModel(
+    @SerializedName("id") val id: Long?,
     @SerializedName("url") val url: String?,
     @SerializedName("repository_url") val repositoryUrl: String?,
     @SerializedName("labels_url") val labelsUrl: String?,
     @SerializedName("comments_url") val commentsUrl: String?,
     @SerializedName("events_url") val eventsUrl: String?,
     @SerializedName("html_url") val htmlUrl: String?,
-    @PrimaryKey
-    @SerializedName("id") val id: Long?,
     @SerializedName("node_id") val nodeId: String?,
     @SerializedName("number") val number: Int?,
     @SerializedName("title") val title: String?,
