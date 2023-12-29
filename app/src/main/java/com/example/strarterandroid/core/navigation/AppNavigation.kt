@@ -22,7 +22,7 @@ fun MainNavigation(navController: NavHostController, viewModel: MainViewModel) {
             MainScreenUI(navController, viewModel)
         }
         mainRoute(this, navController)
-        detailsRoute(this)
+        detailsRoute(this, navController)
     }
 }
 fun mainRoute(navGraphBuilder: NavGraphBuilder, navController: NavHostController){
@@ -40,7 +40,7 @@ fun mainRoute(navGraphBuilder: NavGraphBuilder, navController: NavHostController
     }
 }
 
-fun detailsRoute(navGraphBuilder: NavGraphBuilder){
+fun detailsRoute(navGraphBuilder: NavGraphBuilder, navController: NavHostController){
     navGraphBuilder.composable(
             route = OuterClass.NavCommand.Issues_ROUTE_PATTERN,
     arguments = listOf(
@@ -51,6 +51,6 @@ fun detailsRoute(navGraphBuilder: NavGraphBuilder){
         val name = backStackEntry.arguments?.getString("name") ?: "N/A"
         val owner = backStackEntry.arguments?.getString("owner") ?: "N/A"
         val issuesVm = getViewModel<IssuesVm>()
-        IssuesScreen(name, owner, issuesVm)
+        IssuesScreen(name, owner, issuesVm, navController = navController)
     }
 }
