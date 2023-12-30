@@ -1,16 +1,20 @@
-package com.example.strarterandroid.network.model
+package com.example.strarterandroid.core.model
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
-@Entity
+
+
+@Entity(tableName = "repos_list")
 data class GithubReposListModel(
     @PrimaryKey
     @SerializedName("id") val id: Int,
     @SerializedName("node_id") val nodeId: String,
     @SerializedName("name") val name: String,
     @SerializedName("full_name") val fullName: String,
+    @Embedded(prefix = "owner_")
     @SerializedName("owner") val owner: Owner,
     @SerializedName("private") val private: Boolean,
     @SerializedName("html_url") val htmlUrl: String,
@@ -34,7 +38,7 @@ data class GithubReposListModel(
     @SerializedName("git_commits_url") val gitCommitsUrl: String,
     @SerializedName("git_refs_url") val gitRefsUrl: String,
     @SerializedName("git_tags_url") val gitTagsUrl: String,
-    @SerializedName("git_url") val gitUrl: String,
+    @SerializedName("hooks_url") val hooksUrl: String,
     @SerializedName("issue_comment_url") val issueCommentUrl: String,
     @SerializedName("issue_events_url") val issueEventsUrl: String,
     @SerializedName("issues_url") val issuesUrl: String,
@@ -46,34 +50,32 @@ data class GithubReposListModel(
     @SerializedName("notifications_url") val notificationsUrl: String,
     @SerializedName("pulls_url") val pullsUrl: String,
     @SerializedName("releases_url") val releasesUrl: String,
-    @SerializedName("ssh_url") val sshUrl: String,
     @SerializedName("stargazers_url") val stargazersUrl: String,
     @SerializedName("statuses_url") val statusesUrl: String,
     @SerializedName("subscribers_url") val subscribersUrl: String,
     @SerializedName("subscription_url") val subscriptionUrl: String,
     @SerializedName("tags_url") val tagsUrl: String,
     @SerializedName("teams_url") val teamsUrl: String,
-    @SerializedName("trees_url") val treesUrl: String,
-    @SerializedName("hooks_url") val hooksUrl: String
-) : Serializable
+    @SerializedName("trees_url") val treesUrl: String
+) : java.io.Serializable
 
 data class Owner(
-    @SerializedName("login") val login: String,
-    @SerializedName("id") val id: Int,
-    @SerializedName("node_id") val nodeId: String,
     @SerializedName("avatar_url") val avatarUrl: String,
-    @SerializedName("gravatar_id") val gravatarId: String,
-    @SerializedName("url") val url: String,
-    @SerializedName("html_url") val htmlUrl: String,
+    @SerializedName("events_url") val eventsUrl: String,
     @SerializedName("followers_url") val followersUrl: String,
     @SerializedName("following_url") val followingUrl: String,
     @SerializedName("gists_url") val gistsUrl: String,
+    @SerializedName("gravatar_id") val gravatarId: String,
+    @SerializedName("html_url") val htmlUrl: String,
+    @SerializedName("id") val id: Int,
+    @SerializedName("login") val login: String,
+    @SerializedName("node_id") val nodeId: String,
+    @SerializedName("organizations_url") val organizationsUrl: String,
+    @SerializedName("received_events_url") val receivedEventsUrl: String,
+    @SerializedName("repos_url") val reposUrl: String,
+    @SerializedName("site_admin") val siteAdmin: Boolean,
     @SerializedName("starred_url") val starredUrl: String,
     @SerializedName("subscriptions_url") val subscriptionsUrl: String,
-    @SerializedName("organizations_url") val organizationsUrl: String,
-    @SerializedName("repos_url") val reposUrl: String,
-    @SerializedName("events_url") val eventsUrl: String,
-    @SerializedName("received_events_url") val receivedEventsUrl: String,
     @SerializedName("type") val type: String,
-    @SerializedName("site_admin") val siteAdmin: Boolean
+    @SerializedName("url") val url: String
 ) : Serializable

@@ -1,14 +1,12 @@
 package com.example.strarterandroid.network.local_network
 
-import com.example.strarterandroid.network.model.GithubReposListModel
-import com.example.strarterandroid.network.model.IssuesModel
+import com.example.strarterandroid.core.model.GithubReposListModel
+import com.example.strarterandroid.core.model.IssuesModel
 
-class GithubRepository(private val githubDao: GithubDao) {
-    suspend fun saveOrUpdateReposList(repos: List<GithubReposListModel>) = githubDao.insertOrUpdateReposList(repos)
-    suspend fun saveOrUpdateRepoDetails(repos: GithubReposListModel) = githubDao.insertOrUpdateRepoDetails(repos)
-    suspend fun saveOrUpdateIssue(issue: IssuesModel) = githubDao.insertOrUpdateIssue(issue)
-
-    suspend fun updateReposList(repos: List<GithubReposListModel>) = githubDao.updateReposList(repos)
-    suspend fun updateRepoDetails(repos: GithubReposListModel) = githubDao.updateRepoDetails(repos)
-    suspend fun updateIssue(issue: IssuesModel) = githubDao.updateIssue(issue)
+class GithubRepository(private val githubDao: GithubDao) : IGithubRepository {
+    override suspend fun saveOrUpdateReposList(repos: List<GithubReposListModel>) = githubDao.insertOrUpdateReposList(repos)
+    override suspend fun getReposFromDb(): List<GithubReposListModel> = githubDao.getAllRepos()
+    override suspend fun getRepoByOwnerAndName(owner: String, repo: String): GithubReposListModel? = githubDao.getRepoByOwnerAndName(owner, repo)
+    override suspend fun saveOrUpdateIssue(issue: List<IssuesModel>) = githubDao.insertOrUpdateIssue(issue)
+    override suspend fun getIssuesFromDb(): List<IssuesModel> = githubDao.getAllIssues()
 }

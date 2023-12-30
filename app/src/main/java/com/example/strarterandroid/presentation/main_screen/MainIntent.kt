@@ -1,4 +1,4 @@
-package com.example.strarterandroid.pricentation.main_screen
+package com.example.strarterandroid.presentation.main_screen
 
 sealed class MainIntent {
     object ReposList: MainIntent()
