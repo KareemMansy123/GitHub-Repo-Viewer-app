@@ -3,8 +3,6 @@
 ## Overview
 The GitHub Repo Viewer is a mobile application that allows users to browse and view repositories on GitHub. It is designed to demonstrate expertise in Kotlin, Jetpack Compose, Coroutines, Coroutines Flow with Channel and LiveData, MVVM + MVI architecture, Retrofit, Room Database, Koin, and unit testing.
 
-![GitHub Repo Viewer App Screenshot](screenshots/Screenshot_1703929056.png)
-
 ## Features
 - **Repository Browsing**: Effortlessly browse through a list of GitHub repositories.
 - **Detailed View**: Tap on a repository to see detailed information.
