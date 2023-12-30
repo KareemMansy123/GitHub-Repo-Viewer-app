@@ -5,8 +5,11 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.strarterandroid.App
 import com.example.strarterandroid.core.MainViewState
+import com.example.strarterandroid.core.isNetworkAvailable
 import com.example.strarterandroid.network.local_network.GithubRepository
+import com.example.strarterandroid.network.model.IssuesModel
 import com.example.strarterandroid.network.remote_network.IApiCall
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.channels.Channel
@@ -14,6 +17,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class IssuesVm(
     private val apiRepoImp: IApiCall,
@@ -24,38 +28,12 @@ class IssuesVm(
     val viewState: StateFlow<MainViewState> get() = _viewState
     private val _formattedDate = MutableLiveData<String?>()
     val formattedDate: MutableLiveData<String?> = _formattedDate
-
-    // Function to update the formatted date
-    fun loadFormattedDate(rawDate: String) {
-        Log.e("loadFormattedDate2", "loadFormattedDate: $rawDate", )
-        viewModelScope.launch {
-            _formattedDate.value = buildDate(rawDate)
-        }
-    }
-
-    init {
-        process()
-    }
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         println(throwable.message)
     }
-    @SuppressLint("CheckResult")
-    private fun repoIssuesApi(owner: String, repo: String) {
-        viewModelScope.launch(exceptionHandler) {
-            val response = apiRepoImp.repoIssuesApi(owner, repo)
-            if (response.isSuccessful) {
-                response.body()?.let { body ->
-                    _viewState.value = MainViewState.Success(body)
-                } ?: run {
-                    _viewState.value = MainViewState.Error("Response body is null")
-                }
-            } else {
-                _viewState.value =
-                    MainViewState.Error("Failed to load details: ${response.errorBody()?.string()}")
-            }
-        }
+    init {
+        process()
     }
-
     private fun process() {
         viewModelScope.launch {
             intentChannel.consumeAsFlow().collect {
@@ -64,6 +42,48 @@ class IssuesVm(
                     is IssuesIntent.DateIssues -> Log.e("process", "process: ${it.date}", )
                 }
             }
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    private fun repoIssuesApi(owner: String, repo: String) {
+        viewModelScope.launch(exceptionHandler) {
+            if (isNetworkAvailable(App.appContext)) {
+                fetchIssuesFromApi(owner, repo)
+            } else {
+                fetchIssuesFromDatabase()
+            }
+        }
+    }
+
+    private suspend fun fetchIssuesFromApi(owner: String, repo: String) {
+        try {
+            val response = apiRepoImp.repoIssuesApi(owner, repo)
+            if (response.isSuccessful) {
+                processSuccessfulResponse(response)
+            } else {
+                _viewState.value = MainViewState.Error("Failed to load details: ${response.errorBody()?.string()}")
+            }
+        } catch (e: Exception) {
+            _viewState.value = MainViewState.Error("Network error: ${e.message}")
+        }
+    }
+
+    private suspend fun processSuccessfulResponse(response: Response<List<IssuesModel>>) {
+        response.body()?.let { body ->
+            _viewState.value = MainViewState.Success(body)
+            githubRepository.saveOrUpdateIssue(body)
+        } ?: run {
+            _viewState.value = MainViewState.Error("Response body is null")
+        }
+    }
+
+    private suspend fun fetchIssuesFromDatabase() {
+        val issues = githubRepository.getIssuesFromDb()
+        if (issues.isNotEmpty()) {
+            _viewState.value = MainViewState.Success(issues)
+        } else {
+            _viewState.value = MainViewState.Error("No data available")
         }
     }
 

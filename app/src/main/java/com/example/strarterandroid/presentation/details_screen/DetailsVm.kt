@@ -3,7 +3,9 @@ package com.example.strarterandroid.presentation.details_screen
 import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.strarterandroid.App
 import com.example.strarterandroid.core.MainViewState
+import com.example.strarterandroid.core.isNetworkAvailable
 import com.example.strarterandroid.network.local_network.GithubRepository
 import com.example.strarterandroid.network.remote_network.IApiCall
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -29,7 +31,18 @@ class DetailsVm(
     }
 
     @SuppressLint("CheckResult")
-    private fun repoDetailsApi(owner: String, repo: String) {
+    fun callApi(owner: String, repo: String) {
+        viewModelScope.launch(exceptionHandler) {
+            if (isNetworkAvailable(App.appContext)) {
+                fetchReposFromApi(owner, repo)
+            } else {
+                fetchRepoFromDatabase(owner, repo)
+            }
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    private fun fetchReposFromApi(owner: String, repo: String) {
         viewModelScope.launch(exceptionHandler) {
             val response = apiRepoImp.reposDetailsApi(owner, repo)
             if (response.isSuccessful) {
@@ -45,11 +58,20 @@ class DetailsVm(
         }
     }
 
+    private suspend fun fetchRepoFromDatabase(owner: String, repo: String) {
+        val repoFromDb = githubRepository.getRepoByOwnerAndName(owner, repo)
+        repoFromDb?.let {
+            _viewState.value = MainViewState.Success(it)
+        } ?: run {
+            _viewState.value = MainViewState.Error("No data in database")
+        }
+    }
+
     private fun process() {
         viewModelScope.launch {
             intentChannel.consumeAsFlow().collect {
                 when (it) {
-                    is DetailsIntent.RepoDetails -> repoDetailsApi(it.owner, it.repo)
+                    is DetailsIntent.RepoDetails -> callApi(it.owner, it.repo)
                 }
             }
         }

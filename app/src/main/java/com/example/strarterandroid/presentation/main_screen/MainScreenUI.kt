@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.strarterandroid.core.MainViewState
 import com.example.strarterandroid.core.navigation.OuterClass
-import com.example.strarterandroid.network.remote_network.model.GithubReposListModel
+import com.example.strarterandroid.network.model.GithubReposListModel
 import com.example.strarterandroid.presentation.shared.ErrorUI
 import com.example.strarterandroid.presentation.shared.IdleUI
 

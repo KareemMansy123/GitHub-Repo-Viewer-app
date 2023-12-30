@@ -3,11 +3,11 @@ package com.example.strarterandroid.network.local_network
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.strarterandroid.network.local_network.model.GithubReposListRoomModel
-import com.example.strarterandroid.network.local_network.model.IssuesRoomModel
+import com.example.strarterandroid.network.model.GithubReposListModel
+import com.example.strarterandroid.network.model.IssuesModel
 
-@Database(entities = [GithubReposListRoomModel::class, IssuesRoomModel::class], version = 1)
-@TypeConverters(GenericTypeConverter::class)
+@Database(entities = [GithubReposListModel::class, IssuesModel::class], version = 2)
+@TypeConverters(TypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun githubDao(): GithubDao
 }

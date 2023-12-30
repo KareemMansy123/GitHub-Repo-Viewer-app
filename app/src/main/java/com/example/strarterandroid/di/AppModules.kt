@@ -27,6 +27,7 @@ val appModule = module {
     }
 
     single { get<AppDatabase>().githubDao() }
+
     single { GithubRepository(get()) }
 
     viewModel {

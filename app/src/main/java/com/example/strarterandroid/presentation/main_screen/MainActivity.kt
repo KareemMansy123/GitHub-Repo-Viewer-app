@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.example.strarterandroid.core.navigation.MainNavigation
-import com.example.strarterandroid.ui.theme.StrarterAndroidTheme
+import com.example.strarterandroid.ui.theme.GithubAppViewerTheme
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
@@ -14,9 +14,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            StrarterAndroidTheme {
+            GithubAppViewerTheme {
                 val viewModel = getViewModel<MainViewModel>()
-//                send(viewModel)
+                send(viewModel)
                 val navController = rememberNavController()
                 MainNavigation(navController, viewModel)
             }

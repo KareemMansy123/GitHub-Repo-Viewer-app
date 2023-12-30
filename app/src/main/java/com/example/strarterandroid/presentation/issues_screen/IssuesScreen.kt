@@ -30,7 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.strarterandroid.core.MainViewState
-import com.example.strarterandroid.network.remote_network.model.IssuesModel
+import com.example.strarterandroid.network.model.IssuesModel
 import com.example.strarterandroid.presentation.shared.ErrorUI
 import com.example.strarterandroid.presentation.shared.IdleUI
 import kotlinx.coroutines.*
