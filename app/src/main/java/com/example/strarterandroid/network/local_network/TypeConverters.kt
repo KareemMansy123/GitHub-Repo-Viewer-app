@@ -1,9 +1,9 @@
 package com.example.strarterandroid.network.local_network
 
 import androidx.room.TypeConverter
-import com.example.strarterandroid.network.model.Owner
-import com.example.strarterandroid.network.model.Reactions
-import com.example.strarterandroid.network.model.User
+import com.example.strarterandroid.core.model.Owner
+import com.example.strarterandroid.core.model.Reactions
+import com.example.strarterandroid.core.model.User
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

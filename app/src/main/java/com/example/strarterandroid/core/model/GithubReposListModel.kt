@@ -1,4 +1,4 @@
-package com.example.strarterandroid.network.model
+package com.example.strarterandroid.core.model
 
 import androidx.room.Embedded
 import androidx.room.Entity

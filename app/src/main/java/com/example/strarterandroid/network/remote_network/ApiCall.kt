@@ -1,7 +1,7 @@
 package com.example.strarterandroid.network.remote_network
 
-import com.example.strarterandroid.network.model.GithubReposListModel
-import com.example.strarterandroid.network.model.IssuesModel
+import com.example.strarterandroid.core.model.GithubReposListModel
+import com.example.strarterandroid.core.model.IssuesModel
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

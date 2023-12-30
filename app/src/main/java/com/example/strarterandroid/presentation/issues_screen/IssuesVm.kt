@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.strarterandroid.App
 import com.example.strarterandroid.core.MainViewState
-import com.example.strarterandroid.core.isNetworkAvailable
+import com.example.strarterandroid.presentation.shared.isNetworkAvailable
 import com.example.strarterandroid.network.local_network.GithubRepository
-import com.example.strarterandroid.network.model.IssuesModel
+import com.example.strarterandroid.core.model.IssuesModel
 import com.example.strarterandroid.network.remote_network.IApiCall
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.channels.Channel

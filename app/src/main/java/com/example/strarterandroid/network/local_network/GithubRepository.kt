@@ -1,7 +1,7 @@
 package com.example.strarterandroid.network.local_network
 
-import com.example.strarterandroid.network.model.GithubReposListModel
-import com.example.strarterandroid.network.model.IssuesModel
+import com.example.strarterandroid.core.model.GithubReposListModel
+import com.example.strarterandroid.core.model.IssuesModel
 
 class GithubRepository(private val githubDao: GithubDao) {
     suspend fun saveOrUpdateReposList(repos: List<GithubReposListModel>) = githubDao.insertOrUpdateReposList(repos)

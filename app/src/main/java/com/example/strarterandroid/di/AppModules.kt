@@ -15,13 +15,13 @@ import org.koin.dsl.module
 
 val appModule = module {
     single {
-        RetrofitHelper.createService("https://api.github.com", ApiCall::class.java)
+        RetrofitHelper.createService(ApiConfig.BASE_URL.url, ApiCall::class.java)
     }
     single<IApiCall> {
         MainApiRepoImp(get())
     }
     single {
-        Room.databaseBuilder(get(), AppDatabase::class.java, "github_database")
+        Room.databaseBuilder(get(), AppDatabase::class.java, DatabaseConfig.DB_NAME.dbName)
             .fallbackToDestructiveMigration()
             .build()
     }

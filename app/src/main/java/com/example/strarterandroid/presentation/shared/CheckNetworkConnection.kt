@@ -1,4 +1,4 @@
-package com.example.strarterandroid.core
+package com.example.strarterandroid.presentation.shared
 
 import android.content.Context
 import android.net.ConnectivityManager

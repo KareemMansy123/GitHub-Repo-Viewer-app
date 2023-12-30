@@ -5,8 +5,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.strarterandroid.network.model.GithubReposListModel
-import com.example.strarterandroid.network.model.IssuesModel
+import com.example.strarterandroid.core.model.GithubReposListModel
+import com.example.strarterandroid.core.model.IssuesModel
 
 @Dao
 interface GithubDao {

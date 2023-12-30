@@ -1,4 +1,4 @@
-package com.example.strarterandroid.core.navigation
+package com.example.strarterandroid.presentation.shared.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder

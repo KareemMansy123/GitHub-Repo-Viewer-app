@@ -1,4 +1,4 @@
-package com.example.strarterandroid.network.model
+package com.example.strarterandroid.core.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
