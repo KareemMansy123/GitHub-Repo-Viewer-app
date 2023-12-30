@@ -1,14 +1,22 @@
 # GitHub Repo Viewer App
 
 ## Overview
-The GitHub Repo Viewer is a mobile application developed to showcase repositories from GitHub, providing users with a sleek, responsive, and informative experience. This app is built with a focus on modern Android development practices and libraries, demonstrating skills in Kotlin, Jetpack Compose, Coroutines, Flow with Channel and LiveData, MVVM + MVI architecture, Retrofit, Room Database, Koin, and comprehensive unit testing.
+The GitHub Repo Viewer is a mobile application that allows users to browse and view repositories on GitHub. It is designed to demonstrate expertise in Kotlin, Jetpack Compose, Coroutines, Coroutines Flow with Channel and LiveData, MVVM + MVI architecture, Retrofit, Room Database, Koin, and unit testing.
+
+![GitHub Repo Viewer App Screenshot](screenshots/Screenshot_1703929056.png)
 
 ## Features
-- **Browse Repositories**: Users can view a list of repositories from GitHub with details such as the repo name, owner, star count, and more.
-- **Repository Details**: Click on any repository to view more detailed information and read its README.
-- **Search Functionality**: Search for repositories and filter results based on different criteria.
-- **Offline Support**: Caching with Room Database allows users to view previously loaded data even when offline.
-- **User-friendly Interface**: Built with Jetpack Compose for a modern and seamless UI/UX.
+- **Repository Browsing**: Effortlessly browse through a list of GitHub repositories.
+- **Detailed View**: Tap on a repository to see detailed information.
+- **Offline Access**: Access cached repositories even when offline.
+- **Modern UI**: A clean and modern user interface built with Jetpack Compose.
+- **Seamless Integration**: Utilizes Retrofit for network calls and Room for caching.
+- **Robust Architecture**: Implements MVVM + MVI for clear separation of concerns.
+- **Reactive Programming**: Leverages Coroutines Flow and LiveData for reactive UI updates.
+- **Dependency Injection**: Uses Koin for concise and maintainable dependency injection.
+- **Unit Tested**: Includes comprehensive unit tests to ensure reliability and quality.
+
+<!-- Rest of the README continues below -->
 
 ## Technical Highlights
 - **Kotlin**: Utilizes the latest Kotlin features for concise and effective coding.
