@@ -21,12 +21,4 @@ interface GithubDao {
 
     @Query("SELECT * FROM issues")
     suspend fun getAllIssues(): List<IssuesModel>
-    @Update
-    suspend fun updateReposList(repo: List<GithubReposListModel>)
-
-    @Update
-    suspend fun updateRepoDetails(repo: GithubReposListModel)
-
-    @Update
-    suspend fun updateIssue(issue: List<IssuesModel>)
 }

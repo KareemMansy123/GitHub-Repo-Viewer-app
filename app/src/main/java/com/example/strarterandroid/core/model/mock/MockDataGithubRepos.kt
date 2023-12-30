@@ -1,0 +1,76 @@
+package com.example.strarterandroid.core.model.mock
+
+import com.example.strarterandroid.core.model.GithubReposListModel
+import com.example.strarterandroid.core.model.Owner
+
+object MockDataGithubRepos {
+    val mockOwner = Owner(
+        avatarUrl = "http://example.com/avatar.jpg",
+        eventsUrl = "http://example.com/events",
+        followersUrl = "http://example.com/followers",
+        followingUrl = "http://example.com/following",
+        gistsUrl = "http://example.com/gists",
+        gravatarId = "gravatarId123",
+        htmlUrl = "http://example.com/html",
+        id = 1,
+        login = "mockOwner",
+        nodeId = "nodeId123",
+        organizationsUrl = "http://example.com/organizations",
+        receivedEventsUrl = "http://example.com/received_events",
+        reposUrl = "http://example.com/repos",
+        siteAdmin = false,
+        starredUrl = "http://example.com/starred",
+        subscriptionsUrl = "http://example.com/subscriptions",
+        type = "User",
+        url = "http://example.com/url"
+    )
+    val mockGithubReposListModel = GithubReposListModel(
+        id = 123,
+        nodeId = "nodeId123",
+        name = "mockRepo",
+        fullName = "mockOwner/mockRepo",
+        owner = mockOwner,
+        private = false,
+        htmlUrl = "http://example.com/html_url",
+        description = "This is a mock repository",
+        fork = false,
+        url = "http://example.com/url",
+        archiveUrl = "http://example.com/archive_url",
+        assigneesUrl = "http://example.com/assignees_url",
+        blobsUrl = "http://example.com/blobs_url",
+        branchesUrl = "http://example.com/branches_url",
+        collaboratorsUrl = "http://example.com/collaborators_url",
+        commentsUrl = "http://example.com/comments_url",
+        commitsUrl = "http://example.com/commits_url",
+        compareUrl = "http://example.com/compare_url",
+        contentsUrl = "http://example.com/contents_url",
+        contributorsUrl = "http://example.com/contributors_url",
+        deploymentsUrl = "http://example.com/deployments_url",
+        downloadsUrl = "http://example.com/downloads_url",
+        eventsUrl = "http://example.com/events_url",
+        forksUrl = "http://example.com/forks_url",
+        gitCommitsUrl = "http://example.com/git_commits_url",
+        gitRefsUrl = "http://example.com/git_refs_url",
+        gitTagsUrl = "http://example.com/git_tags_url",
+        hooksUrl = "http://example.com/hooks_url",
+        issueCommentUrl = "http://example.com/issue_comment_url",
+        issueEventsUrl = "http://example.com/issue_events_url",
+        issuesUrl = "http://example.com/issues_url",
+        keysUrl = "http://example.com/keys_url",
+        labelsUrl = "http://example.com/labels_url",
+        languagesUrl = "http://example.com/languages_url",
+        mergesUrl = "http://example.com/merges_url",
+        milestonesUrl = "http://example.com/milestones_url",
+        notificationsUrl = "http://example.com/notifications_url",
+        pullsUrl = "http://example.com/pulls_url",
+        releasesUrl = "http://example.com/releases_url",
+        stargazersUrl = "http://example.com/stargazers_url",
+        statusesUrl = "http://example.com/statuses_url",
+        subscribersUrl = "http://example.com/subscribers_url",
+        subscriptionUrl = "http://example.com/subscription_url",
+        tagsUrl = "http://example.com/tags_url",
+        teamsUrl = "http://example.com/teams_url",
+        treesUrl = "http://example.com/trees_url"
+    )
+    val mockGithubReposListModelList = listOf(mockGithubReposListModel)
+}

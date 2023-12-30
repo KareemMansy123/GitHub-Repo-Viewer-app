@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.strarterandroid.App
 import com.example.strarterandroid.core.MainViewState
-import com.example.strarterandroid.presentation.shared.isNetworkAvailable
-import com.example.strarterandroid.network.local_network.GithubRepository
+import com.example.strarterandroid.network.local_network.IGithubRepository
 import com.example.strarterandroid.network.remote_network.IApiCall
+import com.example.strarterandroid.presentation.shared.network_checker.NetworkChecker
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,9 @@ import kotlinx.coroutines.launch
 
 class DetailsVm(
     private val apiRepoImp: IApiCall,
-    private val githubRepository: GithubRepository
+    private val githubRepository: IGithubRepository,
+    private val networkChecker: NetworkChecker
+
 ) : ViewModel() {
     val intentChannel = Channel<DetailsIntent>(Channel.UNLIMITED)
     private val _viewState = MutableStateFlow<MainViewState>(MainViewState.Idle)
@@ -33,7 +35,7 @@ class DetailsVm(
     @SuppressLint("CheckResult")
     fun callApi(owner: String, repo: String) {
         viewModelScope.launch(exceptionHandler) {
-            if (isNetworkAvailable(App.appContext)) {
+            if (networkChecker.isNetworkAvailable()) {
                 fetchReposFromApi(owner, repo)
             } else {
                 fetchRepoFromDatabase(owner, repo)

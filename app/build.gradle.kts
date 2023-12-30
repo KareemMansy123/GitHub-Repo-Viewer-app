@@ -73,6 +73,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
+    testImplementation("junit:junit:4.12")
+    testImplementation("junit:junit:4.12")
     // koin for DI
     version = "3.4.3"
     implementation("io.insert-koin:koin-core:$version")
@@ -110,4 +112,13 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
+
+    // Unit Testing
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation("io.mockk:mockk:1.10.6")
+    testImplementation("org.mockito:mockito-core:5.1.1")
+    testImplementation("org.robolectric:robolectric:4.5.1")
+
 }
